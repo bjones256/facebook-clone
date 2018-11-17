@@ -6,7 +6,7 @@ module.exports = {
         const db = req.app.get('db')
     
         let { text_content,img } = req.body;
-//using dummy user_id until from end is set up
+//using dummy user_id until front end is set up
 // still need to build created at date
         // let { id: user_id } = req.session.user
         let user_id = 2
@@ -65,5 +65,5 @@ module.exports = {
 // update post
 // delete post
 
-// common a post
+// comment on a post
 }
