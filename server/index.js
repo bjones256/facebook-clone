@@ -30,11 +30,14 @@ app.use(session({
   // Login to account
   app.post('/auth/login', Auth.login)
   // Logout of account
-//   app.get('/auth/logout', Auth.logout)
+  app.get('/auth/logout', Auth.logout)
   // Get account information
-//   app.get('/auth/currentUser', Auth.getCurrentUser)
+  app.get('/auth/currentUser', Auth.getCurrentUser)
   // Update account information
-  // Deacctivate account
+//   app.post('/auth/update/:id', Auth.update)
+  // Deactivate account ---WILL NEED TO ADD ACTIVE COLUMN AND MAY NEED TO UPDATE CONNECTION TABLE
+//   app.post('/auth/deactivate/:id', Auth.deactivate)
+
 
 //Connection Management
   //Friend Request
@@ -44,7 +47,9 @@ app.use(session({
 
 //Posting
   //Create Post
+  app.post('/api/post', Post.create)
   //Get Posts (all)
+  app.post('/api/posts/all',Post.getUserPosts)
   //Get Post (single)
 
 

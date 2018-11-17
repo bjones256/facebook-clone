@@ -1,4 +1,4 @@
-inser-- CREATE TABLE users (
+-- CREATE TABLE users (
 -- id SERIAL PRIMARY KEY,
 -- first_name Varchar(20),
 -- last_name Varchar(20),
@@ -12,7 +12,7 @@ inser-- CREATE TABLE users (
 -- requester_id INTEGER,
 -- requestee_id INTEGER,
 -- is_active BOOLEAN,
--- status Varchar(20)
+-- status Varchar(20) (sent, accepted,inactive)
 -- )
 
 -- CREATE TABLE posts(
