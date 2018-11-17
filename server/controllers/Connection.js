@@ -28,12 +28,13 @@ module.exports = {
             try {
               console.log('getting this users friend requests')
               const db = req.app.get('db')
-              // let { id: requester_id } = req.session.user
-              let {id} = req.body
+              // let { id } = req.session.user
+              let id = 1
               let requests = await db.getRequests(id)
               res.send(requests)
             } catch (error) {
-              
+              console.log('error getting all friend requests for users:', error)
+              res.status(500).send(error)
             }
           },
     //Accept Friend Request

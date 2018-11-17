@@ -43,6 +43,7 @@ app.use(session({
   //Friend Request
   app.post('/api/friend/request', Connect.createRequest)
   //Get User Unaccepted Request
+  app.get('/api/friend/requests',Connect.getRequests)
   //Accept Friend Request -- this might should be a put but it works as is
   app.post('/api/friend/accept', Connect.acceptRequest)
   //Get Friends (all)
