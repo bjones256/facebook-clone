@@ -35,22 +35,29 @@ app.use(session({
   app.get('/auth/currentUser', Auth.getCurrentUser)
   // Update account information
 //   app.post('/auth/update/:id', Auth.update)
-  // Deactivate account ---WILL NEED TO ADD ACTIVE COLUMN AND MAY NEED TO UPDATE CONNECTION TABLE
+  // Deactivate account ---WILL NEED TO ADD ACTIVE COLUMN AND MAY NEED TO UPDATE CONNECTION TABLE IN SAME FUNCTION
 //   app.post('/auth/deactivate/:id', Auth.deactivate)
 
 
 //Connection Management
   //Friend Request
+  app.post('/api/friend/request', Connect.createRequest)
+  //Get User Unaccepted Request
   //Accept Friend Request
+  app.post('/api/friend/accept', Connect.acceptRequest)
   //Get Friends (all)
   //Get Friend (single)
 
 //Posting
   //Create Post
   app.post('/api/post', Post.create)
-  //Get Posts (all)
+  //Get Single Users Posts (all)
+    //Should work for both current user and connections depending on which id is passed through
   app.post('/api/posts/all',Post.getUserPosts)
-  //Get Post (single)
+  //Get all posts available to you
+  app.post('/api/posts/dashboard',Post.getAllPosts)
+  //Get Post (single) should change to come from params
+  app.post('/api/posts/post',Post.getSinglePost)
 
 
 app.listen(PORT, () => {
