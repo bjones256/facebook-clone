@@ -1,25 +1,17 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Header from './Components/Header'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <Header/>
+{/* "this is the app file"
+Copy
+<p class="text-left">Left aligned text on all viewport sizes.</p>
+<p class="text-center">Center aligned text on all viewport sizes.</p>
+<p class="text-right">Right aligned text on all viewport sizes.</p> */}
       </div>
     );
   }

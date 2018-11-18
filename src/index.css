@@ -6,9 +6,45 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color:#e9ebee;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+.navbar{
+border-radius: 0px;
+}
+.navbar-default {
+  background-color: #4267b2;
+  border-color: #4267b2;
+  color: #fff !important;
+}
+.navbar-default .navbar-brand , .navbar-default .navbar-nav>li>a,.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover,.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover{
+  color:#fff;
+}
+nav.navbar.navbar-default .fa {
+  font-size: 18px;
+}
+p.count{
+  margin: 0 0 10px;
+  background-color: red;
+  border-radius: 31%;
+  font-size: 11px;
+  font-weight: 600;
+  position: absolute;
+  /* height: 15px; */
+  top: 10px;
+  right: 7px;
+  margin: 1px;
+  padding: 0px 1px;
+  height: 17px;
+  line-height: 16px;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #fff;
+}
+i.fa.fa-user {
+  margin-right: 7px;
 }
