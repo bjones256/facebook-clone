@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom'
 import { Button,Navbar,FormControl,FormGroup,NavItem, Nav} from 'react-bootstrap';
 
 class Header extends Component{
@@ -8,7 +9,7 @@ render(){
         <Navbar>
             <Navbar.Header>
             <Navbar.Brand>
-                <a href="#home">fakebook</a>
+                <Link to='/'>fakebook</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
             </Navbar.Header>
@@ -23,11 +24,15 @@ render(){
             <Nav pullRight>
             
             <NavItem eventKey={1} href="#">
+            <Link to='/profile'>
             <i class="fa fa-user" aria-hidden="true"></i>
                 Profile
+            </Link>
             </NavItem>
             <NavItem eventKey={2} href="#">
+            <Link to='/'>
                 Home
+            </Link>
             </NavItem>
             <NavItem>
                 <i class="fa fa-users" aria-hidden="true"></i>
