@@ -4,8 +4,10 @@ module.exports = {
     register: async (req,res) => {
         try {
         const db = req.app.get('db')
+        console.log('registering user')
         //get info from req body
         const {first_name, last_name, email, password, phone, profile_img} =req.body
+        console.log(first_name)
         // see if email is already in use
         let userResponse = await db.getUserByEmail(email)
         //if anything is returned email is already in use
@@ -25,6 +27,7 @@ module.exports = {
         req.session.user = newUser
         //send user info back to client
         res.send(newUser)
+        console.log(newUser)
 
         } catch (error) {
             console.log('error registering account:', error)
@@ -33,6 +36,7 @@ module.exports = {
     },
     login: async (req,res) =>{
         try {
+            console.log('attempting to login in user')
         const db = req.app.get('db')
         // get info from req body
         const {email,password} = req.body
@@ -64,8 +68,10 @@ module.exports = {
         res.send(req.session.user)
     },
     logout: (req,res) =>{
+        console.log('destorying session')
         req.session.destroy()
-        res.send.status(200)
+        console.log('session destroyed')
+        res.sendStatus(200)
     },
     // update: (req,res) =>{
     //     try {

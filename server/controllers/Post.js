@@ -4,16 +4,15 @@ module.exports = {
       try {
           
         const db = req.app.get('db')
-    
         let { text_content,img } = req.body;
-//using dummy user_id until front end is set up
 // still need to build created at date
-        // let { id: user_id } = req.session.user
-        let user_id = 2
+        let { id: user_id } = req.session.user
+        // let user_id = 52
     
         let posts = await db.createPost({ user_id, img, text_content })
-        console.log('created post')
+        // console.log('created post')
         res.send(posts)
+        console.log(posts)
       } catch (error) {
         console.log('error creating post:', error)
         res.status(500).send(error)
@@ -21,10 +20,10 @@ module.exports = {
     },
 // read single users posts
     getUserPosts: async (req, res) => {
-        console.log('attemping to pull posts')
+        // console.log('attemping to pull posts')
         try {
         const db = req.app.get('db')
-        const {id} = req.body
+        const {id} = req.params
         let posts = await db.getUserPosts(id)
         res.send(posts)
 
@@ -35,7 +34,7 @@ module.exports = {
     },
     // get user and connections posts
     getAllPosts: async (req, res) => {
-        console.log('attemping to pull all posts')
+        // console.log('attemping to pull all posts')
         try {
         const db = req.app.get('db')
         const {id} = req.body
@@ -49,7 +48,7 @@ module.exports = {
     },
     getSinglePost: async (req,res) => {
         try {
-        console.log('attemping to get single post')
+        // console.log('attemping to get single post')
         const db = req.app.get('db')
     //this is post id    
         const {id} = req.body

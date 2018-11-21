@@ -26,10 +26,10 @@ module.exports = {
     //Get Friend Requests for user
           getRequests: async (req,res) =>{
             try {
-              console.log('getting this users friend requests')
+              console.log('getting this users friend requests', req.session.user)
               const db = req.app.get('db')
-              // let { id } = req.session.user
-              let id = 1
+              let { id } = req.session.user
+              // let id = id
               let requests = await db.getRequests(id)
               res.send(requests)
             } catch (error) {
@@ -44,7 +44,7 @@ module.exports = {
               const db = req.app.get('db')
                  // Access request by connection id
             // Probably want to verify that user is session.user
-              let {id} = req.body
+              let {id} = req.params
               let is_active = true
               let status = "accepted"
                 //if accepting set is_active (to true) and status to (accepted)
@@ -65,10 +65,11 @@ module.exports = {
       // return users excluding user where id equals currentUser
           getFriends: async (req,res) => {
             try {
-              console.log('getting friends')
+              console.log(1111,'getting friends', req.params)
               const db = req.app.get('db')
       // pull id from session when front end is up and running
-              let id = 1
+
+              let {id} = req.params
 
               let friends = await db.getFriends(id)
               res.send(friends)
@@ -77,7 +78,24 @@ module.exports = {
               console.log('error getting friends:', error)
               res.status(500).send(error)
             }
+          },
+          getFriend: async (req,res) => {
+            try {
+              console.log(999,'getting friend', req.params)
+              const db = req.app.get('db')
+      // pull id from session when front end is up and running
+
+              let {id} = req.params
+
+              let friend = await db.getFriendById(id)
+              res.send(friend)
+              
+            } catch (error) {
+              console.log('error getting your friend:', error)
+              res.status(500).send(error)
+            }
           }
+          
 
   //Get Friend (single)
     // get friend id from params

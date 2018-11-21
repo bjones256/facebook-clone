@@ -45,17 +45,19 @@ app.use(session({
   //Get User Unaccepted Request
   app.get('/api/friend/requests',Connect.getRequests)
   //Accept Friend Request -- this might should be a put but it works as is
-  app.post('/api/friend/accept', Connect.acceptRequest)
+  app.post('/api/friend/accept/:id', Connect.acceptRequest)
   //Get Friends (all)
-  app.get('/api/friends/all', Connect.getFriends)
+  app.get('/api/friends/all/:id', Connect.getFriends)
   //Get Friend (single)
+  app.get('/api/friend/:id', Connect.getFriend)
 
+  
 //Posting
   //Create Post
   app.post('/api/post', Post.create)
   //Get Single Users Posts (all)
     //Should work for both current user and connections depending on which id is passed through
-  app.post('/api/posts/all',Post.getUserPosts)
+  app.get('/api/posts/all/:id',Post.getUserPosts)
   //Get all posts available to you
   app.post('/api/posts/dashboard',Post.getAllPosts)
   //Get Post (single) should change to come from params
