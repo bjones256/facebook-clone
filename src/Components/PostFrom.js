@@ -19,9 +19,9 @@ class PostForm extends Component{
 
     //   post is working but it appending the url for some reason
       handleClick = () => {
-          console.log(this.state)
+          // console.log(this.state)
         axios.post('/api/post', this.state).then(response => {
-console.log(response)
+// console.log(response)
           this.setState({
             text_content: ''
           })

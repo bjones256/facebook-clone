@@ -5,12 +5,14 @@ module.exports = {
           
         const db = req.app.get('db')
         let { text_content,img } = req.body;
+        // console.log(req.body)
 // still need to build created at date
+        let created_at = Date.now()
         let { id: user_id } = req.session.user
         // let user_id = 52
     
-        let posts = await db.createPost({ user_id, img, text_content })
-        // console.log('created post')
+        let posts = await db.createPost({ user_id, img, text_content,created_at })
+        console.log('created post')
         res.send(posts)
         console.log(posts)
       } catch (error) {
@@ -34,7 +36,7 @@ module.exports = {
     },
     // get user and connections posts
     getAllPosts: async (req, res) => {
-        console.log('attemping to pull all posts')
+        // console.log('attemping to pull all posts')
         try {
         const db = req.app.get('db')
         const {id} = req.session.user

@@ -1,5 +1,5 @@
-INSERT INTO posts (user_id, img, text_content) 
-VALUES (${user_id}, ${img}, ${text_content});
+INSERT INTO posts (user_id, img, text_content, created_at) 
+VALUES (${user_id}, ${img}, ${text_content}, ${created_at});
 
 -- get all post data from posts
 SELECT posts.*, users.first_name as author, users.id
