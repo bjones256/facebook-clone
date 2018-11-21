@@ -16,3 +16,5 @@
 -- values (1,'This is Brians first post about this cute pitbull puppy','https://www.wikihow.com/images/thumb/8/89/User-Completed-Image-Train-a-Pitbull-Puppy-2018.04.16-18.40.21.0.JPG/670px-User-Completed-Image-Train-a-Pitbull-Puppy-2018.04.16-18.40.21.0.JPG',1542397150),
 -- (1,'This is Brians second post about this same cute pitbull puppy','https://www.wikihow.com/images/thumb/8/89/User-Completed-Image-Train-a-Pitbull-Puppy-2018.04.16-18.40.21.0.JPG/670px-User-Completed-Image-Train-a-Pitbull-Puppy-2018.04.16-18.40.21.0.JPG',1542397151),
 -- (2,'This is Billys first post about this cute pitbull puppy.  This post should be the first created','https://www.finestpitbullsmade.com/wp-content/uploads/2015/07/1073891_611314055565856_1659657446_o-1024x768.jpg',1542394150)
+
+

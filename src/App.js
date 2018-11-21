@@ -3,8 +3,9 @@ import axios from 'axios';
 import './App.css';
 import { connect } from 'react-redux'
 import { HashRouter } from 'react-router-dom'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import {userLoggedIn, getRequests} from './Ducks/reducer'
+
 
 // Components
 import Header from './Components/Header'
@@ -43,7 +44,7 @@ import Register from './Components/Registration/Register'
       })
       axios.get('/api/friend/requests').then(response => {
         if (response.data) {
-          console.log(555555,response.data)
+          // console.log(555555,response.data)
           // this.props.userLoggedIn(response.data)
           this.props.getRequests(response.data)
         }
@@ -54,18 +55,29 @@ import Register from './Components/Registration/Register'
       })
     }
   render() {
-    console.log(this.props.user)
+    // console.log(this.props.user)
     return (
       <div className="App">
       <HashRouter>
         <div>
           <Header/>
           <Switch>
-{/* inside of if statement if user logged in */}
-          <Route path="/login" component={Login} />
+{/* if loggrd in show wall  if not show login page */}
+          {/* <Route path="/login" component={Login} /> */}
           <Route path="/register"component={Register} />
-          <Route path="/wall"component={Wall} />
           <Route path="/profile"component={Profile} />
+          {/* <Route path="/" component={Wall} /> */}
+
+      <Route  path="/"
+        // {...props} 
+        render={props => (
+          this.props.isAuthenticated === true ?
+            <Wall/> :
+            <Login/>
+            // <Redirect to='/login' />
+        )} 
+      />
+
           </Switch>
         </div>
       </HashRouter>
@@ -74,10 +86,11 @@ import Register from './Components/Registration/Register'
   }
 }
 function mapStateToProps(state){
-let {user,requests} = state
+let {user,requests,isAuthenticated} = state
 return {
   user,
-  requests
+  requests,
+  isAuthenticated
 }
 }
 

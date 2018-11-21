@@ -51,7 +51,7 @@ app.use(session({
   //Get Friend (single)
   app.get('/api/friend/:id', Connect.getFriend)
 
-  
+
 //Posting
   //Create Post
   app.post('/api/post', Post.create)
@@ -59,7 +59,7 @@ app.use(session({
     //Should work for both current user and connections depending on which id is passed through
   app.get('/api/posts/all/:id',Post.getUserPosts)
   //Get all posts available to you
-  app.post('/api/posts/dashboard',Post.getAllPosts)
+  app.get('/api/posts/wall',Post.getAllPosts)
   //Get Post (single) should change to come from params
   app.post('/api/posts/post',Post.getSinglePost)
 

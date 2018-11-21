@@ -34,10 +34,10 @@ module.exports = {
     },
     // get user and connections posts
     getAllPosts: async (req, res) => {
-        // console.log('attemping to pull all posts')
+        console.log('attemping to pull all posts')
         try {
         const db = req.app.get('db')
-        const {id} = req.body
+        const {id} = req.session.user
         let posts = await db.getAllPosts()
         res.send(posts)
 
