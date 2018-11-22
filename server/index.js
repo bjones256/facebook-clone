@@ -9,6 +9,7 @@ const { CONNECTION_STRING, SERVER_PORT: PORT, SECRET} = process.env
 const Auth = require('./controllers/Auth')
 const Connect = require('./controllers/Connection')
 const Post = require('./controllers/Post')
+const Tools = require('./controllers/Tools')
 
 const app = express()
 
@@ -63,6 +64,8 @@ app.use(session({
   //Get Post (single) should change to come from params
   app.post('/api/posts/post',Post.getSinglePost)
 
+// Seaching
+  app.get('/api/search/:query', Tools.searchUsers)
 
 app.listen(PORT, () => {
 console.log(`listening on port: ${PORT}`)

@@ -29,7 +29,7 @@ this.setState({
 })
 axios.get(`/api/friend/${this.props.user.id}`).then(response => {
     if (response.data) {
-      console.log(response.data)
+    //   console.log(response.data)
       this.setState({
           viewedUser: response.data[0]
       })
@@ -37,16 +37,16 @@ axios.get(`/api/friend/${this.props.user.id}`).then(response => {
   })
         axios.get(`/api/posts/all/${this.props.user.id}`).then(response => {
           if (response.data) {
-            console.log(response.data)
+            // console.log(response.data)
             this.setState({
                 posts: response.data
             })
           }
         })
         axios.get(`/api/friends/all/${this.props.user.id}`).then(response => {
-            console.log(1234,this.props.user.id)
+            // console.log(1234,this.props.user.id)
             if (response.data) {
-              console.log(response.data)
+            //   console.log(response.data)
               this.setState({
                   friends: response.data
               })
@@ -58,7 +58,7 @@ axios.get(`/api/friend/${this.props.user.id}`).then(response => {
         // on mount i want to update who is being viewed
         axios.get(`/api/friend/${e}`).then(response => {
             if (response.data) {
-              console.log(response.data)
+            //   console.log(response.data)
               this.setState({
                   viewedUser: response.data[0]
               })
@@ -66,16 +66,16 @@ axios.get(`/api/friend/${this.props.user.id}`).then(response => {
           })
                 axios.get(`/api/posts/all/${e}`).then(response => {
                   if (response.data) {
-                    console.log(response.data)
+                    // console.log(response.data)
                     this.setState({
                         posts: response.data
                     })
                   }
                 })
                 axios.get(`/api/friends/all/${e}`).then(response => {
-                    console.log(1234,this.props.user.id)
+                    // console.log(1234,this.props.user.id)
                     if (response.data) {
-                      console.log(response.data)
+                    //   console.log(response.data)
                       this.setState({
                           friends: response.data
                       })

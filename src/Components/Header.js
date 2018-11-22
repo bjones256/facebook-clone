@@ -8,6 +8,13 @@ import { userLoggedOut } from '../Ducks/reducer'
 import axios from 'axios';
 
 class Header extends Component{
+    constructor(){
+        super()
+        this.state = {
+            searchResults:[],
+            userInput:''
+        }
+    }
 
     // This is going to need to move to header
   logOut = () => {
@@ -16,6 +23,24 @@ class Header extends Component{
     })
   }
   
+// From Movie App
+
+search(val){
+    let userInput = val;
+    console.log(val)
+    this.setState({
+      userInput
+    })
+    axios.get(`/api/search/${userInput}`)
+    .then(response => {
+    //   const posts = res.data.results.map(obj => ({id:obj.id, title: obj.title, poster:obj.poster_path, rating:obj.vote_average, total_votes:obj.vote_count}));
+      this.setState({ searchResults: response.data });
+      console.log(response.data)
+    });
+  }
+
+
+// From Movie App
 
 render(){
     let {isAuthenticated, first_name, requests} = this.props
@@ -30,10 +55,28 @@ render(){
             </Navbar.Header>
             <Navbar.Collapse>
             <Navbar.Form pullLeft>
-                <FormGroup>
-                <FormControl type="text" placeholder="Search" />
-                </FormGroup>{' '}
-                <Button type="submit"><i class="fa fa-search" aria-hidden="true"></i></Button>
+                {/* <FormGroup>
+                <FormControl type="text" placeholder="Search" onChange={this.handleChange} />
+                <input type="text" name="searchInput" value={this.state.searchInput} onChange={this.handleChange} placeholder="title"/>
+                </FormGroup>
+ */}
+<div>
+<div className="search-box">
+            <input className="search-input" 
+              placeholder="Search Movies" 
+              value={ this.state.userInput }
+              onChange={ ( e ) => this.search( e.target.value ) } 
+            />
+          </div>
+
+
+    </div>
+
+
+
+
+
+                {/* <Button type="submit"><i class="fa fa-search" aria-hidden="true"></i></Button> */}
             </Navbar.Form>
 
         </Navbar.Collapse>
@@ -49,10 +92,30 @@ render(){
             </Navbar.Header>
             <Navbar.Collapse>
             <Navbar.Form pullLeft>
-                <FormGroup>
+                {/* <FormGroup>
                 <FormControl type="text" placeholder="Search" />
                 </FormGroup>{' '}
-                <Button type="submit"><i class="fa fa-search" aria-hidden="true"></i></Button>
+                <Button type="submit"><i class="fa fa-search" aria-hidden="true"></i></Button> */}
+            <div>
+<div className="search-box">
+            <input className="search-input" 
+              placeholder="Search Movies" 
+              value={ this.state.userInput }
+              onChange={ ( e ) => this.search( e.target.value ) } 
+            />
+          </div>
+          <div class="header-search-results">
+          {this.state.searchResults.map( result => (
+            <div class="header-search-result">
+            <img class="header-search-result-img" src={result.profile_img}/>
+            <p class="header-search-result-text">{result.first_name} {result.last_name}</p>
+            </div>
+                    ))
+            }
+            </div>
+    </div>
+            
+            
             </Navbar.Form>
 
 

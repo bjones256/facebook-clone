@@ -3,6 +3,13 @@ import DateStamp from './DateStamp';
 
 class Post extends Component{
 
+getImage(){
+    let img=this.props.img
+    // console.log(img)
+    if(img != null){
+        return <img class="card-img-top" src={img} alt="Card image cap"/>
+    }
+}
 render(){
     let {text_content,img,created_at,profile_img,first_name,last_name} = this.props
     return (
@@ -17,7 +24,7 @@ render(){
             <br/>
             <DateStamp date={created_at}/>
         </div>
-            <img class="card-img-top" src={img} alt="Card image cap"/>
+        {this.getImage()}
             <div class="card-body">
 
 

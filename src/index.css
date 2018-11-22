@@ -161,3 +161,25 @@ p.post-date{
   opacity: .4;
   margin: 0px 5px;
 }
+.card-text {
+  text-align: left;
+  font-size: 18px;
+  margin: 10px;
+  border: 1px solid #999;
+  padding: 20px 5px;
+  border-radius: 2px;
+}
+.header-search-results{
+  position: absolute;
+  width: 200px;
+  background-color: #fff;
+  color: black;
+  text-align: left;
+}
+.header-search-result{
+  height:50px;
+}
+.header-search-result-img{
+  width:40px;
+  float: left;
+}
