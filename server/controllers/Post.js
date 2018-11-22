@@ -8,8 +8,8 @@ module.exports = {
         // console.log(req.body)
 // still need to build created at date
         let created_at = Date.now()
-        let { id: user_id } = req.session.user
-        // let user_id = 52
+        // let { id: user_id } = req.session.user
+        let user_id = 46
     
         let posts = await db.createPost({ user_id, img, text_content,created_at })
         console.log('created post')

@@ -142,4 +142,22 @@ margin-bottom:80px;
 .profile-info{
   text-align: left;
 }
-
+.post-info{
+  width:100%;
+  height:60px;
+}
+img.post-info-img {
+  width: 50px;
+  border-radius: 50%;
+  float: left;
+}
+p.post-owner {
+  float: left;
+  margin:0px 5px;
+  font-weight: 500;
+}
+p.post-date{
+  float:left;
+  opacity: .4;
+  margin: 0px 5px;
+}

@@ -43,7 +43,7 @@ class Wall extends Component{
       componentDidMount() {
 // on mount i want to update who is being viewed
         axios.get(`/api/posts/wall`).then(response => {
-            console.log('attemping to get wall posts')
+
           if (response.data) {
             console.log(response.data)
             this.setState({
@@ -96,9 +96,12 @@ render(){
                         { this.state.posts.map( post => {
                             return (
                             <Post
-                            create_at={post.create_at}
+                            created_at={post.created_at}
                             text_content={post.text_content}
                             img={post.img}
+                            profile_img={post.profile_img}
+                            first_name={post.first_name}
+                            last_name={post.last_name}
                             />
                             )
                         })}
