@@ -166,9 +166,12 @@ render(){
                         { this.state.posts.map( post => {
                             return (
                             <Post
-                            create_at={post.create_at}
+                            created_at={post.created_at}
                             text_content={post.text_content}
                             img={post.img}
+                            profile_img={post.profile_img}
+                            first_name={post.first_name}
+                            last_name={post.last_name}
                             />
                             )
                         })}
