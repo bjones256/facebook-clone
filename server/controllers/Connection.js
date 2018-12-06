@@ -20,6 +20,7 @@ module.exports = {
     getFriendIds: async (req, res) => {
       try{
       console.log("looking for friend ids")
+      console.log(req.session.user)
       const db = req.app.get('db')
       let {id} = req.session.user
       console.log(id)

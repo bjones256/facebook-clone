@@ -36,6 +36,7 @@ module.exports = {
     // get user and connections posts
     getAllPosts: async (req, res) => {
         // console.log('attemping to pull all posts')
+        console.log('posts', req.session.user)
         try {
         const db = req.app.get('db')
         const {id} = req.session.user

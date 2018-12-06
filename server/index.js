@@ -22,11 +22,12 @@ massive(CONNECTION_STRING).then(db => {
   }) 
 
 app.use(bodyParser.json());
+
 app.use(session({
-    secret: SECRET,
-    resave: true,
-    saveUninitialized: false
-  }))
+  secret: SECRET,
+  resave: true,
+  saveUninitialized: false
+}))
 
 //S3 uploader
 app.use('/s3', require('react-s3-uploader/s3router')({
@@ -35,8 +36,9 @@ app.use('/s3', require('react-s3-uploader/s3router')({
   headers: {'Access-Control-Allow-Origin': '*'}, // optional
   ACL: 'public-read', // this is default
   uniquePrefix: true // (4.0.2 and above) default is true, setting the attribute to false preserves the original filename in S3
- })); 
+})); 
 
+app.use(express.static(`${__dirname}/../build`));
 
 //Authorization
   // Create account

@@ -58,6 +58,7 @@ module.exports = {
         // remove user hash before storing to session
         delete user.hash
         req.session.user = user
+        console.log(req.session.user)
         res.send(req.session.user)
         } catch (error) {
             console.log('error logging into account:', error)
