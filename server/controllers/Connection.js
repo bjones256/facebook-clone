@@ -4,15 +4,42 @@ module.exports = {
     // Verify active or sent connection exists
     // insert into connections table
     // (requester_id, requestee_id, is_active (set to false),status (set sent)) 
-
+    getSentRequests: async (req, res) => {
+      try{
+      console.log("looking for connections")
+      const db = req.app.get('db')
+      let {id} = req.session.user
+      let connections = await db.getSentRequests(id)
+      res.send(connections)
+      console.log(connections)
+      } catch (error) {
+        console.log('error getting connections', error)
+        res.status(500).send(error)
+      }
+    },
+    getFriendIds: async (req, res) => {
+      try{
+      console.log("looking for friend ids")
+      const db = req.app.get('db')
+      let {id} = req.session.user
+      console.log(id)
+      let friendIds = await db.getFriendIds(id)
+      res.send(friendIds)
+      console.log(friendIds)
+      } catch (error) {
+        console.log('error getting friendIds', error)
+        res.status(500).send(error)
+      }
+    },
       // send friend request
           createRequest: async (req, res) => {
             try {
-                
               const db = req.app.get('db')
   //need to insert check to verify connection doesn't exist already
-              let { requester_id, requestee_id } = req.body;
-              // let { id: requester_id } = req.session.user
+  console.log(req.params, req.session.user)
+              let {id: requestee_id} = req.params;
+              let {id: requester_id} = req.session.user
+
               let is_active = false
               let status = "sent"
               let request = await db.friendRequest({ requester_id, requestee_id, is_active, status })
@@ -26,7 +53,7 @@ module.exports = {
     //Get Friend Requests for user
           getRequests: async (req,res) =>{
             try {
-              console.log('getting this users friend requests', req.session.user)
+              // console.log('getting this users friend requests', req.session.user)
               const db = req.app.get('db')
               let { id } = req.session.user
               // let id = id
@@ -72,6 +99,7 @@ module.exports = {
               let {id} = req.params
 
               let friends = await db.getFriends(id)
+              friends.unshift(id)
               res.send(friends)
               
             } catch (error) {

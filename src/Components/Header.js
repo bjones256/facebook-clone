@@ -6,6 +6,7 @@ import { userInfo } from 'os';
 import { request } from 'https';
 import { userLoggedOut } from '../Ducks/reducer'
 import axios from 'axios';
+import Search from './Search'
 
 class Header extends Component{
     constructor(){
@@ -15,32 +16,11 @@ class Header extends Component{
             userInput:''
         }
     }
-
-    // This is going to need to move to header
   logOut = () => {
     axios.get('/auth/logout').then(response => {
       this.props.userLoggedOut()
     })
   }
-  
-// From Movie App
-
-search(val){
-    let userInput = val;
-    console.log(val)
-    this.setState({
-      userInput
-    })
-    axios.get(`/api/search/${userInput}`)
-    .then(response => {
-    //   const posts = res.data.results.map(obj => ({id:obj.id, title: obj.title, poster:obj.poster_path, rating:obj.vote_average, total_votes:obj.vote_count}));
-      this.setState({ searchResults: response.data });
-      console.log(response.data)
-    });
-  }
-
-
-// From Movie App
 
 render(){
     let {isAuthenticated, first_name, requests} = this.props
@@ -55,78 +35,30 @@ render(){
             </Navbar.Header>
             <Navbar.Collapse>
             <Navbar.Form pullLeft>
-                {/* <FormGroup>
-                <FormControl type="text" placeholder="Search" onChange={this.handleChange} />
-                <input type="text" name="searchInput" value={this.state.searchInput} onChange={this.handleChange} placeholder="title"/>
-                </FormGroup>
- */}
-<div>
-<div className="search-box">
-            <input className="search-input" 
-              placeholder="Search Movies" 
-              value={ this.state.userInput }
-              onChange={ ( e ) => this.search( e.target.value ) } 
-            />
-          </div>
-
-
-    </div>
-
-
-
-
-
-                {/* <Button type="submit"><i class="fa fa-search" aria-hidden="true"></i></Button> */}
+            <div>
+            <Search/>
+            </div>
             </Navbar.Form>
-
-        </Navbar.Collapse>
-        
-      </Navbar> :
-
+            </Navbar.Collapse>
+        </Navbar> 
+      :
         <Navbar>
             <Navbar.Header>
             <Navbar.Brand>
                 <Link to='/'>fakebook</Link>
             </Navbar.Brand>
-            <Navbar.Toggle />
+            <Navbar.Toggle/>
             </Navbar.Header>
-            <Navbar.Collapse>
+            <Navbar.Collapse className="test">
             <Navbar.Form pullLeft>
-                {/* <FormGroup>
-                <FormControl type="text" placeholder="Search" />
-                </FormGroup>{' '}
-                <Button type="submit"><i class="fa fa-search" aria-hidden="true"></i></Button> */}
-            <div>
-<div className="search-box">
-            <input className="search-input" 
-              placeholder="Search Movies" 
-              value={ this.state.userInput }
-              onChange={ ( e ) => this.search( e.target.value ) } 
-            />
-          </div>
-          <div class="header-search-results">
-          {this.state.searchResults.map( result => (
-            <div class="header-search-result">
-            <img class="header-search-result-img" src={result.profile_img}/>
-            <p class="header-search-result-text">{result.first_name} {result.last_name}</p>
-            </div>
-                    ))
-            }
-            </div>
-    </div>
-            
-            
+            <Search/>
             </Navbar.Form>
-
-
-    
-            <Nav pullRight>
-            
+            <Nav pullRight>        
             <NavItem eventKey={1} href="#">
-            <Link to='/profile' className='white'>
-            <i class="fa fa-user" aria-hidden="true"></i>
-                {this.props.user.first_name}
-            </Link>
+                <Link to={{pathname:`/profile/${this.props.user.id}`}} className='white'>
+                <i class="fa fa-user" aria-hidden="true"></i>
+                            {this.props.user.first_name}
+                </Link>
             </NavItem>
             <NavItem eventKey={2} href="#">
             <Link to='/' className='white'>
@@ -138,29 +70,23 @@ render(){
             </NavItem>
             <NavItem>
                 <li class="dropdown">
-                <i id="dropdownMenuLink"class="fa fa-bell dropdown-toggle" role="button" data-toggle="dropdown" aria-hidden="true"></i>
+                <i id="dropdownMenuLink"class="fa fa-bell dropdown-toggle" role="button" data-toggle="dropdown" aria-hidden="true" ></i>
                 <ul class="dropdown-menu friend-requests-dropdown">
                     { requests.map( request => {
                         // return request.requester_id
                         return (
                         <li class="friend-request">
-                        <div>
-                        <img src={request.profile_img}/>
-                        <p>{request.first_name}</p>
-
-                        </div>
-                        <div>
-                        <button class="btn btn-primary" 
-                         onClick={() => {
-                            // let val = request.id
-                            // console.log(111,{request.id})
-                            axios.post(`/api/friend/accept/${request.id}`).then(response => {
-                            //   props.setPosts(response.data)
-                            // need to send 
-                            console.log('accepted')
-                            })
-                          }}>Accept</button>
-                          </div>
+                            <div>
+                                <img src={request.profile_img}/>
+                                <p>{request.first_name}</p>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" 
+                                onClick={() => {
+                                    axios.post(`/api/friend/accept/${request.id}`).then(response => {
+                                    })
+                                }}>Accept</button>
+                            </div>
                         </li>
                         )
                     })}
@@ -174,8 +100,6 @@ render(){
             </Nav>
         </Navbar.Collapse>
       </Navbar>
-
-
 )}}
 
 function mapStateToProps(state) {

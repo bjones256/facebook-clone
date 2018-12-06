@@ -10,18 +10,14 @@ class PostForm extends Component{
     }
     handleChange = e => {
         let { name, value } = e.target;
-    
         this.setState({
           [name]: value 
         })
       }
-
-
-    //   post is working but it appending the url for some reason
       handleClick = () => {
           // console.log(this.state)
         axios.post('/api/post', this.state).then(response => {
-// console.log(response)
+          // console.log(response)
           this.setState({
             text_content: ''
           })
@@ -29,17 +25,17 @@ class PostForm extends Component{
       }
 
 render(){
+  let {viewedUser, user_id} = this.props
+  // console.log(viewedUser, user_id)
+  if(viewedUser === user_id){
     return(
-<form>
-  <div class="form-group card">
-  {this.props.user_id}
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text_content" value={this.state.text_content} onChange={this.handleChange}></textarea>
-    <div class="btn btn-primary" onClick={this.handleClick}>post</div>
-  </div>
-</form>
-    )
+      <form>
+        <div class="form-group card">
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text_content" value={this.state.text_content} onChange={this.handleChange}></textarea>
+          <div class="btn btn-primary" onClick={this.handleClick}>post</div>
+        </div>
+      </form>
+    )}else{return false}   
 }
-
 }
-
 export default PostForm

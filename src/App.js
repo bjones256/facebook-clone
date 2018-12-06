@@ -4,8 +4,7 @@ import './App.css';
 import { connect } from 'react-redux'
 import { HashRouter } from 'react-router-dom'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import {userLoggedIn, getRequests} from './Ducks/reducer'
-
+import {userLoggedIn, getRequests, getSentRequests, getFriendIds} from './Ducks/reducer'
 
 // Components
 import Header from './Components/Header'
@@ -14,70 +13,82 @@ import Profile from './Components/Profile'
 import Login from './Components/Login'
 import Register from './Components/Registration/Register'
 
-
 // From App I want to use session data to set state for:
   // CurrentUser
-    //first name
+  //first name
   //Friend Requests
-
 
   class App extends Component {
     constructor() {
       super()
       this.state = {
-        isLoading: false,
+        isLoading: true,
         user:{}
 
       }
     }
-  
-    componentDidMount() {
-      axios.get('/auth/currentUser').then(response => {
+    async componentWillMount() {
+      await axios.get('/auth/currentUser').then(response => {
         if (response.data) {
-          // console.log(response.data)
           this.props.userLoggedIn(response.data)
         }
-  
         this.setState({
           isLoading: false
         })
+      })
+
+      axios.get(`/api/friendsids/all`).then(response => {
+        if (response.data) {
+          // this.props.getSentRequests(response.data)
+          let friendIds = []
+          for(let i=0; i<response.data.length; i++){
+            // console.log(1010101, response.data[i].requestee_id)
+            friendIds.push(response.data[i].id)
+          }
+          this.props.getFriendIds(friendIds)
+        }
+        // console.log(1010101, response.data)
+      })
+      
+      axios.get(`/api/sentrequests`).then(response => {
+        if (response.data) {
+          // this.props.getSentRequests(response.data)
+          let sentReq = []
+          for(let i=0; i<response.data.length; i++){
+            // console.log(1010101, response.data[i].requestee_id)
+            sentReq.push(response.data[i].requestee_id)
+          }
+          this.props.getSentRequests(sentReq)
+        }
+        // console.log(1010101, response.data)
       })
       axios.get('/api/friend/requests').then(response => {
         if (response.data) {
-          // console.log(555555,response.data)
-          // this.props.userLoggedIn(response.data)
           this.props.getRequests(response.data)
         }
-  
         this.setState({
           isLoading: false
         })
       })
-    }
+
+  }
   render() {
-    // console.log(this.props.user)
     return (
       <div className="App">
       <HashRouter>
         <div>
           <Header/>
           <Switch>
-{/* if loggrd in show wall  if not show login page */}
-          {/* <Route path="/login" component={Login} /> */}
-          <Route path="/register"component={Register} />
-          <Route path="/profile"component={Profile} />
-          {/* <Route path="/" component={Wall} /> */}
-
-      <Route  path="/"
-        // {...props} 
-        render={props => (
-          this.props.isAuthenticated === true ?
-            <Wall/> :
-            <Login/>
-            // <Redirect to='/login' />
-        )} 
-      />
-
+            <Route path="/register"component={Register} />
+            <Route path="/profile/:id"component={Profile} />
+            {/* if logged in show wall  if not show login page */}
+            <Route  path="/"
+              render={props => (
+                this.props.isAuthenticated === true ? 
+                  <Wall/> :
+                  <Login/>
+              )} 
+            />
           </Switch>
         </div>
       </HashRouter>
@@ -86,12 +97,14 @@ import Register from './Components/Registration/Register'
   }
 }
 function mapStateToProps(state){
-let {user,requests,isAuthenticated} = state
+let {user,requests,isAuthenticated, sentRequests, friendIds} = state
 return {
   user,
   requests,
-  isAuthenticated
+  isAuthenticated,
+  sentRequests,
+  friendIds
 }
 }
 
-export default connect(mapStateToProps, { userLoggedIn, getRequests })(App);
+export default connect(mapStateToProps, { userLoggedIn, getRequests, getSentRequests, getFriendIds })(App);

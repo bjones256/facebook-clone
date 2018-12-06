@@ -26,8 +26,8 @@ module.exports = {
         const db = req.app.get('db')
         const {id} = req.params
         let posts = await db.getUserPosts(id)
+        posts.unshift(id)
         res.send(posts)
-
         } catch (error) {
         console.log('error getting posts:', error)
         res.status(500).send(error)
@@ -41,7 +41,7 @@ module.exports = {
         const {id} = req.session.user
         let posts = await db.getAllPosts()
         res.send(posts)
-
+        // console.log(posts)
         } catch (error) {
         console.log('error getting posts:', error)
         res.status(500).send(error)

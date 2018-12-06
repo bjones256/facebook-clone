@@ -7,7 +7,7 @@ module.exports = {
         console.log('registering user')
         //get info from req body
         const {first_name, last_name, email, password, phone, profile_img} =req.body
-        console.log(first_name)
+        // console.log(req.body)
         // see if email is already in use
         let userResponse = await db.getUserByEmail(email)
         //if anything is returned email is already in use

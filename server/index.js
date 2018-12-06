@@ -5,10 +5,13 @@ const massive = require('massive');
 require('dotenv').config();
 const { CONNECTION_STRING, SERVER_PORT: PORT, SECRET} = process.env
 
+// const AWS = require('aws-sdk');
+
 //Controllers
 const Auth = require('./controllers/Auth')
 const Connect = require('./controllers/Connection')
 const Post = require('./controllers/Post')
+const Commenting = require('./controllers/Commenting')
 const Tools = require('./controllers/Tools')
 
 const app = express()
@@ -16,7 +19,7 @@ const app = express()
 massive(CONNECTION_STRING).then(db => {
     app.set('db', db)
     console.log('db connected!')
-  })
+  }) 
 
 app.use(bodyParser.json());
 app.use(session({
@@ -24,6 +27,16 @@ app.use(session({
     resave: true,
     saveUninitialized: false
   }))
+
+//S3 uploader
+app.use('/s3', require('react-s3-uploader/s3router')({
+  bucket: process.env.S3_BUCKET,
+  region: process.env.REGION, //optional
+  headers: {'Access-Control-Allow-Origin': '*'}, // optional
+  ACL: 'public-read', // this is default
+  uniquePrefix: true // (4.0.2 and above) default is true, setting the attribute to false preserves the original filename in S3
+ })); 
+
 
 //Authorization
   // Create account
@@ -41,14 +54,18 @@ app.use(session({
 
 
 //Connection Management
+  //Get Sent Requests
+  app.get('/api/sentrequests', Connect.getSentRequests)
   //Friend Request
-  app.post('/api/friend/request', Connect.createRequest)
+  app.post('/api/friend/request/:id', Connect.createRequest)
   //Get User Unaccepted Request
   app.get('/api/friend/requests',Connect.getRequests)
   //Accept Friend Request -- this might should be a put but it works as is
   app.post('/api/friend/accept/:id', Connect.acceptRequest)
   //Get Friends (all)
   app.get('/api/friends/all/:id', Connect.getFriends)
+  //Get Friends (all)
+  app.get('/api/friendsids/all', Connect.getFriendIds)
   //Get Friend (single)
   app.get('/api/friend/:id', Connect.getFriend)
 
@@ -63,6 +80,11 @@ app.use(session({
   app.get('/api/posts/wall',Post.getAllPosts)
   //Get Post (single) should change to come from params
   app.post('/api/posts/post',Post.getSinglePost)
+
+//Commenting
+  //create a comment
+  app.post('/api/comment', Commenting.create)
+  app.get('/api/comment/get/all/:id', Commenting.getAllComments)
 
 // Seaching
   app.get('/api/search/:query', Tools.searchUsers)

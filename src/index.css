@@ -66,6 +66,7 @@ i.fa.fa-user {
 }
 .friend-request img {
   width: 40px;
+  max-height: 40px;
   border-radius: 50%;
   margin: 0px 5px;
   float:left;
@@ -93,7 +94,7 @@ button.btn.btn-secondary {
 .profile-header{
 height: 280px;
 background: #fff;
-margin-bottom:80px;
+/* margin-bottom:80px; */
 }
 .profile-header img {
   position: absolute;
@@ -101,15 +102,19 @@ margin-bottom:80px;
   left: 30px;
   width: 170px;
   height: 170px;
-  background-color: #666;
+  background-color: #e9ebee;
   border-radius: 50%;
-  border: none;
+  border: 1px solid #e9ebee;
   overflow: hidden;
+  z-index: 1;
 }
 .profile-header h3 {
   position: absolute;
   bottom: 30px;
   left: 220px;
+}
+.profile-friends{
+  min-height: 93px;
 }
 .friend-img-container {
   width: 70px;
@@ -141,11 +146,17 @@ margin-bottom:80px;
 }
 .profile-info{
   text-align: left;
+  padding:0px;
+  min-height: 83px;
+}
+.profile-info div {
+  margin: 6px;
 }
 .post-info{
   width:100%;
   height:60px;
 }
+
 img.post-info-img {
   width: 50px;
   border-radius: 50%;
@@ -178,8 +189,99 @@ p.post-date{
 }
 .header-search-result{
   height:50px;
+  padding: 5px;
+  border-bottom: 1px solid #999;
 }
 .header-search-result-img{
   width:40px;
   float: left;
 }
+.search-suggestions{
+  position: absolute;
+  background-color: #fff;
+  width: 230px;
+  z-index: 100;
+  margin: 5px 0px 0px 14px;
+  color: black;
+  text-align: left;
+  border-radius: 2px;
+  box-shadow: 1px 1px 1px #999;
+  top: 45px;
+}
+.search-suggestion{
+  height: 50px;
+  padding:5px
+}
+.search-suggestion-img{
+width: 40px;
+float: left;
+}
+.search-suggestion-name{
+padding-top: 10px;
+margin-left: 46px;
+}
+.navbar-form {
+  margin-bottom:4px;
+  margin-top: 4px;
+}
+.login-box.card {
+  width: 360px;
+  margin: auto;
+  padding: 50px;
+}
+.login-button{
+  margin-top: 33px;
+  margin-bottom: 17px;
+}
+
+.comment {
+  height: 60px;
+}
+.comment-profile-img-container{
+  padding:0px;
+}
+.comment-profile-img{
+width:100%;
+border-radius:50%;
+}
+p.comment-text {
+  text-align: left;
+  background:#e9ebee;
+  border-radius: 20px;
+  padding: 5px 14px;
+}
+.profile-nav{
+  height: 42px;
+  background-color:#fff;
+  border-top:1px solid #e9ebee;
+  /* z-index: -1; */
+}
+.col-xs-2.profile-nav-link {
+  border-right: 1px solid #e9ebee;
+  height: 30px;
+  margin: 5px 0px;
+  padding: 6px 0px;
+  color: #4267b2;
+  font-size: 16px;
+  font-weight: 500;
+  z-index:2;
+
+}
+.col-xs-2.profile-nav-link.last {
+  border: none;
+}
+/* 
+@media (max-width:767px){
+  .navbar-default {
+    background-color: transparent;
+    border-color: transparent;
+    color: #fff !important;
+}
+.navbar-header {
+  background-color: #4267b2;
+}
+.test.navbar-collapse.collapse.in {
+  width: 180px;
+  background-color: #4267b2;
+}
+} */

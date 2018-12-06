@@ -45,7 +45,7 @@ class Wall extends Component{
         axios.get(`/api/posts/wall`).then(response => {
 
           if (response.data) {
-            console.log(response.data)
+            console.log(response.data[0].id)
             this.setState({
                 posts: response.data
             })
@@ -102,6 +102,8 @@ render(){
                             profile_img={post.profile_img}
                             first_name={post.first_name}
                             last_name={post.last_name}
+                            post_id={post.id}
+                            user_id={post.user_id}
                             />
                             )
                         })}

@@ -29,7 +29,8 @@ class DateStamp extends Component{
         if(date + (1000*60*60*24)  > now){
         return thisDay
         }
-        else if(date + (100*60*60*24*7)> now) {
+        else if(date + (1000*60*60*24*7) > now) {
+
             return <div>{insideWeek}</div>
         }
         else {

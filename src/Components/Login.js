@@ -1,12 +1,8 @@
 import React, {Component} from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect,Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { userLoggedIn } from '../Ducks/reducer'
-// import StepOne from './StepOne'
-// import StepTwo from './StepTwo'
-// import StepThree from './StepThree'
-
 class Login extends Component{
     constructor(){
         super()
@@ -40,41 +36,33 @@ class Login extends Component{
       })
     })
   }
-
-
-
 render(){
     let {first_name, last_name, email, password, phone, profile_img, handleChange} = this.state
     
     return (
         this.props.isAuthenticated ? 
     <Redirect to="/"/> :
-    
-    <div>
-        <h3>"This is the <strong>Login</strong> component"</h3>
-
-        <input type="text" name="email" value={email} onChange={this.handleChange} placeholder="email"/>
-        <input type="text" name="password" value={password} onChange={this.handleChange} placeholder="password"/>
-
-        <button onClick={this.handleClick}>submit</button>
-        {/* <Switch>
-        <Route path="/register/step2/3" render={(props) => <StepTwo {...this.state} handleChange={this.handleChange} />}/>
-        <Route path="/register/step3/3" render={(props) => <StepThree {...this.state} />}/>
-        <Route path="/register" render={(props) => <StepOne {...this.state} />}/>
-        </Switch> */}
-
+  <div class="login-box card">
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+        <input type="text" name="email" class="form-control" id="exampleInputEmail1" value={email} onChange={this.handleChange} placeholder="email"/>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Password</label>
+        <input type="text" name="password" class="form-control" id="exampleInputEmail1" value={password} onChange={this.handleChange} placeholder="password"/>
+        <button type="submit" class="btn btn-primary login-button" onClick={this.handleClick}>submit</button>
+      <br/>
+      <Link to ="/register"><small id="emailHelp" class="form-text text-muted">Create account</small></Link> 
+    </div>
+  </div>
     )
 }
-
 }
-
-
 function mapStateToProps(state) {
     let { isAuthenticated } = state
     return {
       isAuthenticated
     }
   }
-  
   export default connect(mapStateToProps, { userLoggedIn })(Login)
