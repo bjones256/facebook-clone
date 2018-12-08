@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Redirect, Link, matchPath, Switch, Route } from 'react-router-dom'
+import { Redirect, Link, Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { userLoggedOut } from '../Ducks/reducer'
@@ -34,11 +34,10 @@ checkConnection(){
         return false
     }
 }
-loadProfile() {
-    let { id } = this.props.match.params
+loadProfile(val) {
+    let { id } = val ? val : this.props.match.params
     // console.log('Id in load profile', id)
     axios.get(`/api/friend/${id}`).then(response => {
-        console.log('Response from first axios call', response)
         if (response.data[0].id === +this.props.match.params.id) {
             this.setState({
             viewedUser: response.data[0]
@@ -47,8 +46,6 @@ loadProfile() {
         })
     
     axios.get(`/api/friends/all/${id}`).then(response => {
-        console.log('Response from second axios call', response)
-
         if (response.data[0] === this.props.match.params.id) {
             response.data.shift()
             this.setState({
@@ -58,8 +55,6 @@ loadProfile() {
     })
 
     axios.get(`/api/posts/all/${id}`).then(response => {
-        console.log('Response from third axios call', response)
-
         if (response.data[0] === this.props.match.params.id) {
             response.data.shift()
             this.setState({
@@ -69,7 +64,7 @@ loadProfile() {
     })
 
     }
-    changeProfile(){
+    changeProfile = () => {
         this.loadProfile()
     }
 
@@ -119,7 +114,7 @@ else{
     }
 }
 
-    let {first_name, last_name, email, phone, profile_img} = this.props.user
+    // let {first_name, last_name, email, phone, profile_img} = this.props.user
     return (
         !this.props.isAuthenticated ? 
         <Redirect to="/login"/> :
@@ -127,7 +122,7 @@ else{
 {/* PROFILE PAGE HEADER   */}
         <div class="profile-header col-xs-12">
             {/* <img src={background_image}/> */}
-            <img src={this.state.viewedUser.profile_img}/>
+            <img alt={this.state.viewedUser.fisrt_name} src={this.state.viewedUser.profile_img}/>
             <h3>{this.state.viewedUser.first_name} {this.state.viewedUser.last_name}</h3>
         </div>
         <div class="col-xs-12 profile-nav">
@@ -158,11 +153,11 @@ else{
             </div>
     {/* FRIENDS BLOCK */}
          <div class="col-xs-12 card profile-friends">
-            { this.state.friends.map( friend => {
+            { this.state.friends.slice(0, 9).map( friend => {
                 return (                
                 <div class="col-xs-4 friend-img-container" >
                     <Link to={{ pathname: `/profile/${friend.id}`}} onClick={()=>(this.changeProfile(friend.id))}>                
-                        <img class="friend-img" src={friend.profile_img}/>
+                        <img alt={friend.first_name} class="friend-img" src={friend.profile_img}/>
                         <p>{friend.first_name} {friend.last_name}</p>
                     </Link>
                 </div>
@@ -175,8 +170,8 @@ else{
 <Switch>
     <Route exact path={`/profile/${this.state.viewedUser.id}`} render={() => <Timeline displayPosts={displayPosts} user_id ={this.props.user.id} viewedUser={this.state.viewedUser}/>}/>
     <Route path={`/profile/${this.state.viewedUser.id}/about`} render={() => <About viewedUser={this.state.viewedUser}/>}/>
-    <Route path={`/profile/${this.state.viewedUser.id}/friends`} render={() => <Friends friends={this.state.friends} viewedUser={this.state.viewedUser}/>}/>
-    <Route path={`/profile/${this.state.viewedUser.id}/photos`} component={Photos}/>
+    <Route path={`/profile/${this.state.viewedUser.id}/friends`} render={() => <Friends friends={this.state.friends} viewedUser={this.state.viewedUser} loadProfile={this.loadProfile} changeProfile={this.changeProfile}/>}/>
+        <Route path={`/profile/${this.state.viewedUser.id}/photos`} render={() => <Photos posts={this.state.posts} viewedUser={this.state.viewedUser}/>}/>
 </Switch>
 
         </div>

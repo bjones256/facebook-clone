@@ -364,6 +364,21 @@ padding: 0px 4px;
 .about{
   text-align:left;
 }
+img.profile-images-page-img{
+  width:100%;
+}
+img.post-img{
+  width:100%;
+}
+
+.img-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.profile-imgs{
+  margin:10px 0px;
+}
 @media (max-width:767px){
   .col-xs-12.profile-nav {
     padding-top: 28px;
@@ -375,6 +390,7 @@ padding: 0px 4px;
   #timeline {
     padding: 0px;
 }
+
   /* .navbar-default {
     background-color: transparent;
     border-color: transparent;

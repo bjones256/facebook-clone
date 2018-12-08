@@ -7,7 +7,7 @@ const Suggestions = (props) => {
   const options = props.results.map(r => (
     <Link to={{ pathname: `/profile/${r.id}`}} >
     <li key={r.id} class="search-suggestion">
-    <img class="search-suggestion-img" src={r.profile_img}/>
+    <img alt={r.first_name} class="search-suggestion-img" src={r.profile_img}/>
       <p class="search-suggestion-name">{r.first_name} {r.last_name}</p>
     </li>
     </Link>

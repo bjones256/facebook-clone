@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom'
+// import {Link} from 'react-router-dom'
 import DateStamp from './DateStamp';
 import axios from 'axios'
 import { connect } from 'react-redux'
@@ -15,10 +15,10 @@ class Comments extends Component{
 
     componentWillMount(){
     axios.get(`/api/comment/get/all/${this.props.post_id}`).then(response => {
-        console.log(response.data[0],this.props.post_id)
+        // console.log(response.data[0],this.props.post_id)
         if (+response.data[0] === this.props.post_id) {
             response.data.shift()
-            console.log("comments",response.data)
+            // console.log("comments",response.data)
             this.setState({
             comments: response.data
         })
@@ -27,9 +27,9 @@ class Comments extends Component{
 }
 
 deleteComment(id){
-console.log(id)
+// console.log(id)
     axios.delete(`api/comment/destroy/${id}`).then(response => {
-        console.log(1111111111111, response)
+        // console.log(1111111111111, response)
         // this.setState({
         //     comments: response.data
         // })
@@ -40,7 +40,7 @@ console.log(id)
 
 
 render(){
-    let {text_content,img,created_at,profile_img,first_name,last_name,id} = this.props
+    // let {text_content,created_at,profile_img,first_name,last_name,id} = this.props
     return ( 
 // if current user id is equal to comment user id or post owner id allow delete comment
         // i need a button to press in the comment 

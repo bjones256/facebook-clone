@@ -15,9 +15,9 @@ class PostForm extends Component{
         })
       }
       handleClick = () => {
-          // console.log(this.state)
+
         axios.post('/api/post', this.state).then(response => {
-          // console.log(response)
+
           this.setState({
             text_content: ''
           })
@@ -26,7 +26,6 @@ class PostForm extends Component{
 
 render(){
   let {viewedUser, user_id} = this.props
-  console.log(viewedUser, user_id)
   if(viewedUser === user_id){
     return(
       <form>

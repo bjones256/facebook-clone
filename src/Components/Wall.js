@@ -1,24 +1,3 @@
-// import React, {Component} from 'react';
-// import {Redirect} from 'react-router-dom'
-
-// class Wall extends Component{
-
-// render(){
-  
-//         return (
-//         //     !this.props.isAuthenticated ? 
-//         // <Redirect to="/login"/> :
-        
-
-//         <h3>"This is the <strong>Wall</strong> component"</h3>
-
-//     )
-// }
-
-// }
-
-// export default Wall
-
 import React, {Component} from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -26,7 +5,6 @@ import axios from 'axios'
 import { userLoggedOut } from '../Ducks/reducer'
 import Post from './Post';
 import PostForm from './PostFrom';
-
 
 class Wall extends Component{
     constructor() {
@@ -38,24 +16,19 @@ class Wall extends Component{
         }
       }
 
-    //   I need to update the id that is getting passed in here
-    // it can be either current user id or friend if
       componentDidMount() {
-// on mount i want to update who is being viewed
         axios.get(`/api/posts/wall`).then(response => {
 
           if (response.data) {
-            console.log(response.data[0].id)
             this.setState({
                 posts: response.data
             })
           }
         })
-
     }
  
 render(){
-    let {first_name, last_name, email, phone, profile_img} = this.props.user
+    // let {first_name, last_name, email, phone, profile_img} = this.props.user
     return (
         !this.props.isAuthenticated ? 
         <Redirect to="/login"/> :
@@ -96,6 +69,7 @@ render(){
                         { this.state.posts.map( post => {
                             return (
                             <Post
+                            key={post.id}
                             created_at={post.created_at}
                             text_content={post.text_content}
                             img={post.img}

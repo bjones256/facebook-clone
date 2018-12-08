@@ -35,7 +35,7 @@ class About extends Component{
             axios.put(`/auth/profile/update/${this.state.id}`, this.state).then(response => {
                 let user = response.data
                 // this.props.userLoggedIn(user)
-              console.log(user)
+
               }).catch(err => {
                 console.log(err.response)
                 this.setState({

@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom'
-import DateStamp from './DateStamp';
 import axios from 'axios'
 import { connect } from 'react-redux'
 
@@ -21,9 +19,7 @@ class AddComment extends Component{
         })
       }
       handleClick = () => {
-          // console.log(this.state)
         axios.post('/api/comment', this.state).then(response => {
-          // console.log(response)
           this.setState({
             text_content: '',
             img:'',

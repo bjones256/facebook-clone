@@ -40,7 +40,7 @@ class DateStamp extends Component{
 
 render(){
     return (
-<p class ="post-date">{this.getDate()}</p>
+<div><p class ="post-date">{this.getDate()}</p></div>
     )
 }
 }

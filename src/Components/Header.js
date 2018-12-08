@@ -66,7 +66,9 @@ render(){
             </Link>
             </NavItem>
             <NavItem>
+            <Link to={`/profile/${this.props.user.id}/friends`} className='white'>
                 <i class="fa fa-users" aria-hidden="true"></i>
+            </Link>
             </NavItem>
             <NavItem>
                 <li class="dropdown">
@@ -77,8 +79,8 @@ render(){
                         return (
                         <li class="friend-request">
                             <div>
-                                <img src={request.profile_img}/>
-                                <p>{request.first_name}</p>
+                                <img src={request.profile_img} alt={request.first_name}/>
+                                <p>{request.first_name} {request.last_name}</p>
                             </div>
                             <div>
                                 <button class="btn btn-primary" 
