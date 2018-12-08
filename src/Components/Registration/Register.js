@@ -62,23 +62,22 @@ render(){
     return (this.props.isAuthenticated ? 
     <Redirect to="/"/> :
     
-    <div class="col-md-4 register-box card col-md-offset-4">
+    <div class="login-box card page-container">
 
-        <div class="row">
-          <div class="col col-md-6">
+<label for="exampleInputEmail1">First Name</label>
             <input type="text" class="form-control" name="first_name" value={first_name} onChange={this.handleChange} placeholder="first name"/>
-          </div>
-          <div class="col col-md-6">
+            <label for="exampleInputEmail1">Last Name</label>
             <input type="text" class="form-control" name="last_name" value={last_name} onChange={this.handleChange} placeholder="last name"/>
-          </div>
-        </div>
 
+<label for="exampleInputEmail1">Email address</label>
         <input type="text" class="form-control" name="email" value={email} onChange={this.handleChange} placeholder="email"/>
+        <label for="exampleInputEmail1">Password</label>
         <input type="text" class="form-control" name="password" value={password} onChange={this.handleChange} placeholder="password"/>
+        <label for="exampleInputEmail1">Phone Number</label>
         <input type="text" class="form-control" name="phone" value={phone} onChange={this.handleChange} placeholder="phone"/>
-       
+        
        {/* Switch this to get file */}
-
+       <label for="exampleInputEmail1">Profile Image</label>
         <ReactS3Uploader
                 signingUrl="/s3/sign"
                 signingUrlMethod="GET"
@@ -89,7 +88,7 @@ render(){
                 onProgress={this.onProgress}
                 onError={this.onUploadError}
                 onFinish={this.onFinish}
-                signingUrlWithCredentials={ false }      // in case when need to pass authentication credentials via CORS
+                signingUrlWithCredentials={ true }      // in case when need to pass authentication credentials via CORS
                 uploadRequestHeaders={{ 'x-amz-acl': 'public-read' }}  // this is the default
                 contentDisposition="auto"
                 scrubFilename={(filename) => filename.replace(/[^\w\d_\-.]+/ig, '')}
@@ -115,7 +114,9 @@ render(){
 
 
 
-        <Link to ="/login"><small id="emailHelp" class="form-text text-muted">Login</small></Link> 
+        <Link to ="/login"><small class="form-text text-muted">Login</small></Link> 
+        <br/>
+        <small id="info-policy" class="form-text text-muted">We'll never share your information with anyone else.</small>
     </div>
     )
 }

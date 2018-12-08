@@ -6,12 +6,12 @@ module.exports = {
     // (requester_id, requestee_id, is_active (set to false),status (set sent)) 
     getSentRequests: async (req, res) => {
       try{
-      console.log("looking for connections")
+      // console.log("looking for connections")
       const db = req.app.get('db')
       let {id} = req.session.user
       let connections = await db.getSentRequests(id)
       res.send(connections)
-      console.log(connections)
+      // console.log(connections)
       } catch (error) {
         console.log('error getting connections', error)
         res.status(500).send(error)
@@ -19,14 +19,14 @@ module.exports = {
     },
     getFriendIds: async (req, res) => {
       try{
-      console.log("looking for friend ids")
-      console.log(req.session.user)
+      // console.log("looking for friend ids")
+      // console.log(req.session.user)
       const db = req.app.get('db')
       let {id} = req.session.user
       console.log(id)
       let friendIds = await db.getFriendIds(id)
       res.send(friendIds)
-      console.log(friendIds)
+      // console.log(friendIds)
       } catch (error) {
         console.log('error getting friendIds', error)
         res.status(500).send(error)
@@ -37,14 +37,14 @@ module.exports = {
             try {
               const db = req.app.get('db')
   //need to insert check to verify connection doesn't exist already
-  console.log(req.params, req.session.user)
+  // console.log(req.params, req.session.user)
               let {id: requestee_id} = req.params;
               let {id: requester_id} = req.session.user
 
               let is_active = false
               let status = "sent"
               let request = await db.friendRequest({ requester_id, requestee_id, is_active, status })
-              console.log('sent friend request')
+              // console.log('sent friend request')
               res.send(request)
             } catch (error) {
               console.log('error sending friend request:', error)
@@ -68,7 +68,7 @@ module.exports = {
     //Accept Friend Request
           acceptRequest: async (req, res) => {
             try {
-              console.log('accepting friend request')
+              // console.log('accepting friend request')
               const db = req.app.get('db')
                  // Access request by connection id
             // Probably want to verify that user is session.user
@@ -76,9 +76,9 @@ module.exports = {
               let is_active = true
               let status = "accepted"
                 //if accepting set is_active (to true) and status to (accepted)
-              console.log(id,status, is_active)
+              // console.log(id,status, is_active)
               let accept = await db.friendAccept({ id, is_active, status })
-              console.log('friend request accepted')
+              // console.log('friend request accepted')
               res.send(accept)
             } catch (error) {
               console.log('error accepting friend request:', error)
@@ -93,7 +93,7 @@ module.exports = {
       // return users excluding user where id equals currentUser
           getFriends: async (req,res) => {
             try {
-              console.log(1111,'getting friends', req.params)
+              // console.log(1111,'getting friends', req.params)
               const db = req.app.get('db')
       // pull id from session when front end is up and running
 
@@ -110,7 +110,7 @@ module.exports = {
           },
           getFriend: async (req,res) => {
             try {
-              console.log(999,'getting friend', req.params)
+              // console.log(999,'getting friend', req.params)
               const db = req.app.get('db')
       // pull id from session when front end is up and running
 

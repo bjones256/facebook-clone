@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom'
 import DateStamp from './DateStamp';
 import axios from 'axios'
+import { connect } from 'react-redux'
+
 
 class AddComment extends Component{
     constructor(props){
@@ -32,16 +34,35 @@ class AddComment extends Component{
 render(){
     return ( 
 
+                <div class="comment add-comment">
+                    <div class="col-xs-1 comment-profile-img-container"><img class="comment-profile-img" src={this.props.user.profile_img}/>
+                    </div>
 
-      <form class="comment-form">
+                    <div class="col-xs-11">
+                    <div class="comment-text" ><textarea class="form-control add-comment-box" id="exampleFormControlTextarea1" rows="3" name="text_content" value={this.state.text_content} onChange={this.handleChange} placeholder="write a comment"></textarea></div>
+                    </div>
+                    <div class="comment-date">
+                    </div>
 
-          <textarea class="form-control add-comment-box" id="exampleFormControlTextarea1" rows="3" name="text_content" value={this.state.text_content} onChange={this.handleChange} placeholder="write a comment"></textarea>
-          <div class="btn btn-primary" onClick={this.handleClick}>comment</div>
+          <div class="btn btn-comment" onClick={this.handleClick}>comment</div>
 
-      </form>
+                </div>
+
+
 
 
     )
 }
 }
-export default AddComment
+function mapStateToProps(state){
+    let {user, isAuthenticated, sentRequests,requests,friendIds} = state
+    return {
+    isAuthenticated,
+    user,
+    sentRequests,
+    requests,
+    friendIds
+    }
+}
+
+export default connect(mapStateToProps)(AddComment)

@@ -4,10 +4,13 @@ import Suggestions from './SearchSuggestions'
 
 
 class Search extends Component {
-  state = {
+  constructor(){
+    super()
+  this.state = {
     query: '',
     results: []
   }
+}
 
   getInfo = () => {
     axios.get(`api/search/${this.state.query}`)
@@ -17,6 +20,17 @@ class Search extends Component {
           results: response.data               
         })
       })
+  }
+  // clearResults = (e) =>{
+  //   this.setState({
+  //     results:[]
+  //   })
+  // }
+  clearResults() {
+
+    this.setState({
+      results:[]
+    })
   }
 
   handleInputChange = () => {
@@ -28,9 +42,7 @@ class Search extends Component {
           this.getInfo()
         
       }else if(this.state.query.length === 0){
-        this.setState({
-          results:[]
-        })
+      this.clearResults()
       }
     })
     
@@ -49,7 +61,9 @@ class Search extends Component {
             </div>
             {/* <p>{this.state.query}</p> */}
       </form>
-      <Suggestions results={this.state.results} />
+      <Suggestions
+      results={this.state.results} 
+      onClick={this.clearResults}/>
       </div>
     )
   }

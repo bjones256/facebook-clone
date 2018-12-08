@@ -59,7 +59,7 @@ render(){
     return (
         !this.props.isAuthenticated ? 
         <Redirect to="/login"/> :
-        <div class="col-xs-12">
+        <div class="col-xs-12 page-container">
 
 {/* LEFT SIDE BAR */}
          <div class='col-md-3'>

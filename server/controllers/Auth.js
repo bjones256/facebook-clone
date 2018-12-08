@@ -4,7 +4,7 @@ module.exports = {
     register: async (req,res) => {
         try {
         const db = req.app.get('db')
-        console.log('registering user')
+        // console.log('registering user')
         //get info from req body
         const {first_name, last_name, email, password, phone, profile_img} =req.body
         // console.log(req.body)
@@ -27,7 +27,7 @@ module.exports = {
         req.session.user = newUser
         //send user info back to client
         res.send(newUser)
-        console.log(newUser)
+        // console.log(newUser)
 
         } catch (error) {
             console.log('error registering account:', error)
@@ -36,7 +36,7 @@ module.exports = {
     },
     login: async (req,res) =>{
         try {
-            console.log('attempting to login in user')
+            // console.log('attempting to login in user')
         const db = req.app.get('db')
         // get info from req body
         const {email,password} = req.body
@@ -58,10 +58,10 @@ module.exports = {
         // remove user hash before storing to session
         delete user.hash
         req.session.user = user
-        console.log(req.session.user)
+        // console.log(req.session.user)
         res.send(req.session.user)
         } catch (error) {
-            console.log('error logging into account:', error)
+            // console.log('error logging into account:', error)
             res.status(500).send(error)
         }
     },
@@ -69,19 +69,26 @@ module.exports = {
         res.send(req.session.user)
     },
     logout: (req,res) =>{
-        console.log('destorying session')
+        // console.log('destorying session')
         req.session.destroy()
-        console.log('session destroyed')
+        // console.log('session destroyed')
         res.sendStatus(200)
     },
-    // update: (req,res) =>{
-    //     try {
-    //     const db = req.app.get('db')
-    //     } catch (error) {
-    //         console.log('error logging registering account:', error)
-    //         res.status(500).send(error)
-    //     }
-    // },
+    update: async (req,res) =>{
+        try {
+        const db = req.app.get('db')
+        console.log("right here------",req.body)
+        const {first_name, last_name, email ,id,profile_img, phone} = req.body
+        console.log(email,first_name,last_name,id,profile_img)
+        let updateUser = await db.updateUser({first_name, last_name, email , id, profile_img, phone})
+        console.log(99999999,updateUser)
+        res.send(updateUser)
+
+        } catch (error) {
+            console.log('error updating account:', error)
+            res.status(500).send(error)
+        }
+    },
     // deactivate: (req,res) =>{
 
     // }

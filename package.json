@@ -42,7 +42,7 @@
   ],
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "server/index.js",
-  "proxy": "http://localhost:4000",
+  "proxy": "http://localhost:5004",
   "devDependencies": {},
   "keywords": [],
   "author": "",

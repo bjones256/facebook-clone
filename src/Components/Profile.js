@@ -4,8 +4,10 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import { userLoggedOut } from '../Ducks/reducer'
 import Post from './Post';
-import PostForm from './PostFrom';
-import Register from './Registration/Register';
+import Timeline from './Timeline';
+import About from './About';
+import Friends from './Friends';
+import Photos from './Photos';
 
 class Profile extends Component{
     constructor() {
@@ -71,24 +73,12 @@ loadProfile() {
         this.loadProfile()
     }
 
-    // changePage = (e) => {
-    //     let { name } = e.target
-    //     this.state.profilePage
-    //     this.setState({
-    //         profilePage: name
-    //     })
-        
-    
-    //   }
-
 render(){
     let displayPosts;
     let requestIds = [];
 
     for(let i=0;i<this.props.requests.length; i++){
         requestIds.push(Number(this.props.requests[i].requester_id))
-        // console.log(typeof(this.props.requests[i].id))
-        // console.log(this.props.requests[i].id, this.state.viewedUser.id)
     }
 
 //See if you've already sent a request to this person
@@ -114,15 +104,15 @@ if(this.props.friendIds.indexOf(Number(this.state.viewedUser.id)) > -1 || this.s
 else{
 
     if(this.props.sentRequests.indexOf(Number(this.state.viewedUser.id)) > -1){
-        displayPosts = <div>Friend Request has been sent</div>
+        displayPosts = <div class="card">Friend Request has been sent</div>
         }
 // if not have they sent you one?
     else if(requestIds.indexOf(Number(this.state.viewedUser.id)) > -1){
-        displayPosts = <div>Accept Friend Request <button class="btn btn-primary">Accept</button></div>
+        displayPosts = <div class="card">Accept Friend Request <button class="btn btn-primary">Accept</button></div>
     }
     else{
 
-        displayPosts = <div>Send a Friend Request <button class="btn btn-primary" onClick={() => {
+        displayPosts = <div class="card">Send a Friend Request <button class="btn btn-primary" onClick={() => {
             axios.post(`/api/friend/request/${this.state.viewedUser.id}`).then(response => {
             })
         }}> Send Request</button></div>
@@ -133,7 +123,7 @@ else{
     return (
         !this.props.isAuthenticated ? 
         <Redirect to="/login"/> :
-        <div class="col-xs-12">
+        <div class="col-xs-12 page-container">
 {/* PROFILE PAGE HEADER   */}
         <div class="profile-header col-xs-12">
             {/* <img src={background_image}/> */}
@@ -141,26 +131,24 @@ else{
             <h3>{this.state.viewedUser.first_name} {this.state.viewedUser.last_name}</h3>
         </div>
         <div class="col-xs-12 profile-nav">
-        <div class="col-xs-4">
+        <div class="col-sm-4">
         
         </div>
-        <div class="col-xs-2 profile-nav-link">
-        <a name="timeline" onClick={this.changePage}>Timeline</a>
+        <div class="col-xs-3 col-sm-2 profile-nav-link">
+        <Link to={`/profile/${this.state.viewedUser.id}`}>Timeline</Link>
         </div>
-        <div class="col-xs-2 profile-nav-link" onClick={this.changePage}>
-        <a  name="about" onClick={this.changePage}>About</a>
+        <div class="col-xs-3 col-sm-2 profile-nav-link" onClick={this.changePage}>
+        <Link to={`/profile/${this.state.viewedUser.id}/about`} viewedUserId={this.state.viewedUser.id}>About</Link>
         </div>
-        <div class="col-xs-2 profile-nav-link">
-        <a  name="friends" onClick={this.changePage}>Friends</a>
+        <div class="col-xs-3 col-sm-2 profile-nav-link">
+        <Link to={`/profile/${this.state.viewedUser.id}/friends`}>Friends</Link>
         </div>
-        <div class="col-xs-2 profile-nav-link last">
-        <a name="photos" onClick={this.changePage}>Photos</a>
+        <div class="col-xs-3 col-sm-2 profile-nav-link last">
+        <Link to={`/profile/${this.state.viewedUser.id}/photos`}>Photos</Link>
         </div>
-        {/* <div class="col-xs-2 profile-nav-link">
-        </div> */}
         </div>
 {/* LEFT SIDE BAR */}
-         <div class='col-md-3'>
+         <div class='col-xs-12 col-md-3'>
 
     {/* PROFILE INFO BLOCK */}
             <div class="col-xs-12 card profile-info">
@@ -183,21 +171,13 @@ else{
         </div>
         </div>
 {/* MAIN POST CONTAINER */}
-
-        <div id="timeline" class="col-md-7">
-    {/* CREATE POST */}
-            {/* {this.props.user.id === this.state.viewedUser.id ?
-            return( <div></div> :*/}
-
-                <div class='col-xs-12'>
-                    <PostForm
-                    viewedUser={this.state.viewedUser.id}
-                    user_id={this.props.user.id}
-                    />
-                </div>
-            
-    {/* ALL POSTS */}
-    {displayPosts}
+<div id="timeline" class="col-md-7">
+<Switch>
+    <Route exact path={`/profile/${this.state.viewedUser.id}`} render={() => <Timeline displayPosts={displayPosts} user_id ={this.props.user.id} viewedUser={this.state.viewedUser}/>}/>
+    <Route path={`/profile/${this.state.viewedUser.id}/about`} render={() => <About viewedUser={this.state.viewedUser}/>}/>
+    <Route path={`/profile/${this.state.viewedUser.id}/friends`} render={() => <Friends friends={this.state.friends} viewedUser={this.state.viewedUser}/>}/>
+    <Route path={`/profile/${this.state.viewedUser.id}/photos`} component={Photos}/>
+</Switch>
 
         </div>
         </div>

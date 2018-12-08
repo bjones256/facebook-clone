@@ -3,7 +3,9 @@
 -- SELECT * FROM users WHERE user_vectors @@ to_tsquery($1);
 SELECT * FROM users 
 where
-users.first_name like ($1)
+LOWER(users.first_name) like LOWER($1)
+limit 10
+
 --  or 
 -- users.last_name like ('J%')
 ;

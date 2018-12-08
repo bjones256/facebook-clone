@@ -50,7 +50,7 @@ app.use(express.static(`${__dirname}/../build`));
   // Get account information
   app.get('/auth/currentUser', Auth.getCurrentUser)
   // Update account information
-//   app.post('/auth/update/:id', Auth.update)
+  app.put('/auth/profile/update/:id', Auth.update)
   // Deactivate account ---WILL NEED TO ADD ACTIVE COLUMN AND MAY NEED TO UPDATE CONNECTION TABLE IN SAME FUNCTION
 //   app.post('/auth/deactivate/:id', Auth.deactivate)
 
@@ -87,6 +87,7 @@ app.use(express.static(`${__dirname}/../build`));
   //create a comment
   app.post('/api/comment', Commenting.create)
   app.get('/api/comment/get/all/:id', Commenting.getAllComments)
+  app.delete('/api/comment/destroy/:id',Commenting.destroyComment)
 
 // Seaching
   app.get('/api/search/:query', Tools.searchUsers)

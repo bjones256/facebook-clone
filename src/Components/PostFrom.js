@@ -26,13 +26,13 @@ class PostForm extends Component{
 
 render(){
   let {viewedUser, user_id} = this.props
-  // console.log(viewedUser, user_id)
+  console.log(viewedUser, user_id)
   if(viewedUser === user_id){
     return(
       <form>
-        <div class="form-group card">
+        <div class="form-group card create-post">
           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text_content" value={this.state.text_content} onChange={this.handleChange}></textarea>
-          <div class="btn btn-primary" onClick={this.handleClick}>post</div>
+          <div class="btn btn-primary create-post-btn" onClick={this.handleClick}>post</div>
         </div>
       </form>
     )}else{return false}   

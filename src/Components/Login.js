@@ -42,7 +42,7 @@ render(){
     return (
         this.props.isAuthenticated ? 
     <Redirect to="/"/> :
-  <div class="login-box card">
+  <div class="login-box card page-container">
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
         <input type="text" name="email" class="form-control" id="exampleInputEmail1" value={email} onChange={this.handleChange} placeholder="email"/>

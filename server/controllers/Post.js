@@ -11,9 +11,9 @@ module.exports = {
         // let user_id = 46
     
         let posts = await db.createPost({ user_id, img, text_content,created_at })
-        console.log('created post')
+        // console.log('created post')
         res.send(posts)
-        console.log(posts)
+        // console.log(posts)
       } catch (error) {
         console.log('error creating post:', error)
         res.status(500).send(error)
@@ -36,7 +36,7 @@ module.exports = {
     // get user and connections posts
     getAllPosts: async (req, res) => {
         // console.log('attemping to pull all posts')
-        console.log('posts', req.session.user)
+        // console.log('posts', req.session.user)
         try {
         const db = req.app.get('db')
         const {id} = req.session.user
