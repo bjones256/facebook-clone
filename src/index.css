@@ -379,6 +379,9 @@ img.post-img{
 .profile-imgs{
   margin:10px 0px;
 }
+.text-muted{
+  font-size: 9px;
+}
 @media (max-width:767px){
   .col-xs-12.profile-nav {
     padding-top: 28px;
