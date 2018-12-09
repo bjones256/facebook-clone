@@ -143,7 +143,7 @@ else{
         </div>
         </div>
 {/* LEFT SIDE BAR */}
-         <div class='col-xs-12 col-md-3'>
+         <div class='col-xs-12 col-md-3 left-sidebar'>
 
     {/* PROFILE INFO BLOCK */}
             <div class="col-xs-12 card profile-info">

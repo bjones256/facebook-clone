@@ -53,7 +53,7 @@ render(){
             <Navbar.Form pullLeft>
             <Search/>
             </Navbar.Form>
-            <Nav pullRight>        
+            <Nav pullRight class="pres">        
             <NavItem eventKey={1} href="#">
                 <Link to={{pathname:`/profile/${this.props.user.id}`}} className='white'>
                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -65,12 +65,12 @@ render(){
                 Home
             </Link>
             </NavItem>
-            <NavItem>
+            <NavItem class="mobile-bottom">
             <Link to={`/profile/${this.props.user.id}/friends`} className='white'>
                 <i class="fa fa-users" aria-hidden="true"></i>
             </Link>
             </NavItem>
-            <NavItem>
+            <NavItem class="mobile-bottom">
                 <li class="dropdown">
                 <i id="dropdownMenuLink"class="fa fa-bell dropdown-toggle" role="button" data-toggle="dropdown" aria-hidden="true" ></i>
                 <ul class="dropdown-menu friend-requests-dropdown">
@@ -96,7 +96,7 @@ render(){
                 </li>
                 <p class="count">{requests.length}</p>
             </NavItem>
-            <NavItem>
+            <NavItem class="mobile-bottom">
                 <i class="fa fa-times" aria-hidden="true" onClick={this.logOut}></i>
             </NavItem>
             </Nav>
