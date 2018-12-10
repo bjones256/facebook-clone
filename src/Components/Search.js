@@ -26,10 +26,11 @@ class Search extends Component {
   //     results:[]
   //   })
   // }
-  clearResults() {
+  clearResults = () => {
 
     this.setState({
-      results:[]
+      results:[],
+      query: ''
     })
   }
 
@@ -53,7 +54,7 @@ class Search extends Component {
         <div>
         <form class="navbar-form navbar-left">
             <div class="form-group">
-              <input type="text" class="form-control" 
+              <input type="text" class="form-control" value={this.state.query}
               placeholder="Search for..."
               ref={input => this.search = input}
               onChange={this.handleInputChange}
